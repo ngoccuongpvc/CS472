@@ -18,13 +18,12 @@ a.imdb-link {
     font-family: "Arial Black";
 }
 
-body {
-    background-color: lightgray;
+a.imdb-link:hover {
+    text-decoration: underline;
 }
 
-.center {
-    margin: auto;
-    width: 50%;
+body {
+    background-color: lightgray;
 }
 
 .image-center {
