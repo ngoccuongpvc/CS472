@@ -1,0 +1,42 @@
+.color-red {
+    color: red;
+}
+
+h2 {
+    color: cadetblue;
+    font-family: Courier;
+}
+
+a.imdb-link {
+    background-color: #f5c518;
+    display: inline-block;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 2px 5px;
+    margin: 2px;
+    border-radius: 5px;
+    font-family: "Arial Black";
+}
+
+body {
+    background-color: lightgray;
+}
+
+.center {
+    margin: auto;
+    width: 50%;
+}
+
+.image-center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.text-align-center {
+    text-align: center;
+}
+
+p::first-letter {
+    font-size: 1.5rem;
+}
