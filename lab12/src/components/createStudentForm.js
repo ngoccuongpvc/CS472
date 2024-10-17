@@ -1,8 +1,7 @@
-import { useContext, useState } from "react";
-import { StudentDispatchContext } from "../contexts/studentContext";
+import { useState } from "react";
 
-export default function CreateStudentForm() {
-    const studentDispatch = useContext(StudentDispatchContext);
+export default function CreateStudentForm(props) {
+    const {addStudent} = props;
 
     const [id, setId] = useState("");
     const [name, setName] = useState("");
@@ -15,17 +14,21 @@ export default function CreateStudentForm() {
         setProgram(() => "");
     }
 
-    const handleRegister = (event) => {
+    const handleRegister = async (event) => {
         event.preventDefault();
-        studentDispatch({
-            type: 'added',
-            id: id,
-            name: name,
-            program: program
-        })
-        setId(() => "");
-        setName(() => "");
-        setProgram(() => "");
+
+        try {
+            await addStudent({
+                id: id,
+                name: name,
+                program: program
+            })
+            setId(() => "");
+            setName(() => "");
+            setProgram(() => "");
+        } catch (error) {
+            alert(error.message);
+        }
     }
 
     const handleIDChange = (event) => {

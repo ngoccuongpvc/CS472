@@ -1,34 +1,31 @@
 import 'bootstrap/dist/css/bootstrap.css';
 
-import { StudentContext, StudentDispatchContext } from "./contexts/studentContext";
 import "./App.css";
 import CreateStudentForm from "./components/createStudentForm";
 import StudentList from './components/StudentList';
-import { useReducer } from 'react';
+import { useEffect, useState } from 'react';
+import { apis } from './apis/studentApis';
 
 function App() {
-  const mockStudentsData = [
-    { id: 116257, name: "Anna Smith", program: "MBA" },
-    { id: 615789, name: "John Doe", program: "Compro" },
-    { id: 116868, name: "Tom Jerryh", program: "MBA" }
-  ];
+  const [students, setStudents] = useState([]);
 
-  const studentsReducer = (students, action) => {
-    switch (action.type) {
-      case 'added': {
-        return [...students, {
-          id: action.id,
-          name: action.name,
-          program: action.program
-        }]
-      }
-      default: {
-        throw Error('Unknown action: ' + action.type);
-      }
-    }
+  const reload = async () => {
+      const data = await apis.getAllStudents();
+      setStudents(data);
+  }
+  useEffect(() => {
+    reload();
+  }, [])
+
+  const addStudent = async (student) => {
+    await apis.addStudent(student);
+    reload();
   }
 
-  const [students, studentsDispatch] = useReducer(studentsReducer, mockStudentsData);
+  const deleteStudent = async (id) => {
+    await apis.deleteStudent(id);
+    reload();
+  }
 
   return (
     <div className="App">
@@ -36,14 +33,10 @@ function App() {
         Student Registration
       </header>
       <main className="container">
-        <StudentContext.Provider value={students}>
-          <StudentDispatchContext.Provider value={studentsDispatch}>
-            <div className='w-50'>
-              <CreateStudentForm />
-              <StudentList />
-            </div>
-          </StudentDispatchContext.Provider>
-        </StudentContext.Provider>
+          <div className='w-50'>
+            <CreateStudentForm addStudent={addStudent} />
+            <StudentList students={students} deleteStudent={deleteStudent} />
+          </div>
       </main>
       <footer>
         <div>
