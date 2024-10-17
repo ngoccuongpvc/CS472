@@ -23,7 +23,7 @@ const studentController = {
     createStudent: (req, res, next) => {
         const { id, name, program } = req.body;
         if (id && name && program) {
-            const student = new Student(id, name, program);
+            const student = new Student(id * 1, name, program);
             if (student.create())
                 res.status(201).json({ message: "created" })
             else
@@ -42,7 +42,7 @@ const studentController = {
                 });
             } else {
                 res.status(404).json({
-                    meesage: "Student is not found"
+                    message: "Student is not found"
                 })
             }
         }
