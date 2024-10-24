@@ -20,7 +20,6 @@ export default {
     },
     getFrequentWords: async (req, res, next) => {
         const words = await Counter.find().getTopWords(10).exec();
-        console.log(words)
         res.status(200).json(words);
     }
 }

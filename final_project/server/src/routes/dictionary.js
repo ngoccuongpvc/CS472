@@ -5,6 +5,6 @@ const dictionaryRouter = express.Router();
 
 dictionaryRouter.get('/words/:word', dictionaryController.trackWord, dictionaryController.lookupWord);
 
-dictionaryRouter.get('/leaderBoard', dictionaryController.getFrequentWords);
+dictionaryRouter.get('/leaderboard', dictionaryController.getFrequentWords);
 
 export default dictionaryRouter;
